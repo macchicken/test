@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GB18030">
+<title>test HTML</title>
+<script type="text/javascript">
+function parseMonth(index){
+var month="";
+switch(index){
+case 0:month="January";break;
+case 1:month="February";break;
+case 2:month="March";break;
+case 3:month="April";break;
+case 4:month="May";break;
+case 5:month="June";break;
+case 6:month="July";break;
+case 7:month="August";break;
+case 8:month="September";break;
+case 9:month="October";break;
+case 10:month="November";break;
+case 11:month="December";break;
+}
+return month;
+}
+function parseDay(index){
+var day="";
+switch(index){
+case 0:day="Sunday";break;
+case 1:day="Monday";break;
+case 2:day="Tuesday";break;
+case 3:day="Wednesday";break;
+case 4:day="Thursday";break;
+case 5:day="Friday";break;
+case 6:day="Saturday";break;
+}
+return day;
+}
+function loadjscssfile(filename, filetype){ 
+if (filetype=="js"){
+  var fileref=document.createElement('script');
+  fileref.setAttribute("type","text/javascript");//set the type attribute
+  fileref.setAttribute("src", filename);//the adress of a file
+} 
+else if (filetype=="css"){ 
+  var fileref=document.createElement("link"); 
+  fileref.setAttribute("rel", "stylesheet");
+  fileref.setAttribute("type", "text/css");
+  fileref.setAttribute("href", filename);
+} 
+if (typeof fileref!="undefined") 
+  document.getElementsByTagName("head")[0].appendChild(fileref);
+}  
+function disp_alert()
+{
+alert("Hello again! This is how we"+'\n'+"add line breaks to an alert box!");
+alert(navigator.appCodeName+'\n'+navigator.appName+'\n'+navigator.appVersion+'\n'+"cookie enabled:"+navigator.cookieEnabled+
+'\n'+"compilation platform:"+navigator.platform+'\n'+"java enabled:"+navigator.javaEnabled()+'\n'+"taint enabled:"+navigator.taintEnabled());
+}
+function disp_location(){
+alert("anchor portion of a URL:"+location.hash+'\n'+"hostname and port of a URL:"+location.host+'\n'
++"the hostname of a URL"+location.hostname+'\n'+"entire URL:"+location.href
++'\n'+"path name of a URL:"+location.pathname+'\n'+"port number the server uses for a URL:"+location.port+'\n'
++"protocol of a URL:"+location.protocol+'\n'+"query portion of a URL:"+location.search);
+}
+function checkTime(i)
+{
+if (i<10)
+  {
+  i="0" + i;
+  }
+return i;
+}
+function startTime()
+{//时钟
+var today=new Date();
+var hour=today.getHours();
+var minutes=today.getMinutes();
+var seconds=today.getSeconds();
+minutes=checkTime(minutes);
+seconds=checkTime(seconds);
+document.getElementById('clock').innerHTML=hour+":"+minutes+":"+seconds;
+t=setTimeout('startTime()',500);
+}
+function displayDay(){
+var today=new Date();
+var year=today.getFullYear();
+var month=parseMonth(today.getMonth());
+var day=parseDay(today.getDay());
+var timeZone=(today.getTimezoneOffset())/60;
+document.getElementById('today').innerHTML="Today is: "+year+" "+month+" "+day+'\n'+"local time zone is: "+(-timeZone);
+}
+</script>
+</head>
+<body>
+<input type="button" onclick="disp_alert()" value="alert"/>
+<input type="button" onclick="disp_location()" value="location"/>
+<input type="button" onclick="window.location.reload()" value="current page reload"/>
+<div id="clock">
+<input type="button" onclick="startTime()" value="time clock"/>
+</div>
+<div id="today">
+<input type="button" onclick="displayDay()" value="display day"/>
+</div>
+</body>
+</html>

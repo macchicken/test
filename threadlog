@@ -1,0 +1,48 @@
+2010-8-14 12:58:16 test.app.ThreadDemo accessStudent
+全部: thread_a is running
+2010-8-14 12:58:16 test.app.ThreadDemo accessStudent
+全部: thread_b is running
+2010-8-14 12:58:16 test.app.ThreadDemo accessStudent
+全部: about to set the age is 81 abount to set the name is 81john
+2010-8-14 12:58:16 test.app.ThreadDemo accessStudent
+全部: about to set the age is 10 abount to set the name is 10john
+2010-8-14 12:58:16 test.app.ThreadDemo accessStudent
+全部: thread_a first read student age is 81
+2010-8-14 12:58:16 test.app.ThreadDemo accessStudent
+全部: thread_b first read student age is 10
+2010-8-14 12:58:16 test.app.ThreadDemo accessStudent
+全部: thread_a first read student name is 10john
+2010-8-14 12:58:16 test.app.ThreadDemo accessStudent
+全部: thread_b first read student name is 10john
+2010-8-14 12:58:17 test.app.ThreadDemo accessStudent
+全部: thread_b second read student age is 10
+2010-8-14 12:58:17 test.app.ThreadDemo accessStudent
+全部: thread_a second read student age is 10
+2010-8-14 12:58:17 test.app.ThreadDemo accessStudent
+全部: thread_b second read student name is 10john
+2010-8-14 12:58:17 test.app.ThreadDemo accessStudent
+全部: thread_a second read student name is 10john
+2010-8-14 12:59:35 test.app.ThreadDemo accessStudent
+全部: thread_a is running
+2010-8-14 12:59:35 test.app.ThreadDemo accessStudent
+全部: thread_b is running
+2010-8-14 12:59:35 test.app.ThreadDemo accessStudent
+全部: thread_a about to set the age is 52 abount to set the name is 52john
+2010-8-14 12:59:35 test.app.ThreadDemo accessStudent
+全部: thread_b about to set the age is 70 abount to set the name is 70john
+2010-8-14 12:59:35 test.app.ThreadDemo accessStudent
+全部: thread_a first read student age is 52
+2010-8-14 12:59:35 test.app.ThreadDemo accessStudent
+全部: thread_b first read student age is 70
+2010-8-14 12:59:35 test.app.ThreadDemo accessStudent
+全部: thread_a first read student name is 70john
+2010-8-14 12:59:35 test.app.ThreadDemo accessStudent
+全部: thread_b first read student name is 70john
+2010-8-14 12:59:36 test.app.ThreadDemo accessStudent
+全部: thread_b second read student age is 70
+2010-8-14 12:59:36 test.app.ThreadDemo accessStudent
+全部: thread_b second read student name is 70john
+2010-8-14 12:59:36 test.app.ThreadDemo accessStudent
+全部: thread_a second read student age is 70
+2010-8-14 12:59:36 test.app.ThreadDemo accessStudent
+全部: thread_a second read student name is 70john
