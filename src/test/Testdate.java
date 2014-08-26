@@ -1,23 +1,15 @@
 package test;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
-import test.app.FileCheckSum;
-import test.app.JavaZipBrowser;
-import test.app.ListSystemService;
 import test.element.Student;
 
 public class Testdate {
@@ -109,7 +101,6 @@ public class Testdate {
 	}
 	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 /*		Calendar now=Calendar.getInstance();
 		System.out.println("现在时间是："+now.getTime());
 		Calendar date=stringtoDate("2010-07-30");
@@ -206,5 +197,8 @@ public class Testdate {
 		System.out.println("time1 时间是："+time1.getTime());
 		time2.add(Calendar.MONDAY, -9);
 		System.out.println("time2 时间是："+time2.getTime());
+		System.out.println(time1.get(Calendar.YEAR));
+		System.out.println(time1.get(Calendar.MONTH));
+		System.out.println(time1.get(Calendar.DAY_OF_MONTH));
 	    }
 }

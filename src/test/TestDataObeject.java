@@ -2,9 +2,12 @@ package test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+
 
 public class TestDataObeject {
-
+	
+	
 	public void testParseArrayList(ArrayList dataList){
 		HashMap temp = null;
 		HashMap result =null;
@@ -27,6 +30,8 @@ public class TestDataObeject {
 		System.out.println("result SIZE--------"+result.size());
 		System.out.println("result--------"+result);
 	}
+	
+	
 	/**
 	 * @param args
 	 */
