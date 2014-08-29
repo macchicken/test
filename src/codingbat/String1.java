@@ -2,9 +2,12 @@ package codingbat;
 
 public class String1 {
 	
-	private static String1 my=new String1();
+	private static String1 my;
 	
 	public static String1 getInstance(){
+		if (my==null) {
+			return my = new String1();
+		}
 		return my;
 	}
 

@@ -4,9 +4,12 @@ import java.util.HashMap;
 
 public class Array3 {
 	
-	private static Array3 my=new Array3();
+	private static Array3 my;
 	
 	public static Array3 getInstance(){
+		if (my==null) {
+			return my=new Array3();
+		}
 		return my;
 	}
 

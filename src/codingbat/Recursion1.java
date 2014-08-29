@@ -2,9 +2,12 @@ package codingbat;
 
 public class Recursion1 {
 
-	private static Recursion1 my=new Recursion1();
+	private static Recursion1 my;
 	
 	public static Recursion1 getInstance(){
+		if (my==null) {
+			return my = new Recursion1();
+		}
 		return my;
 	}
 

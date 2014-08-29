@@ -2,9 +2,12 @@ package codingbat;
 
 public class Array1 {
 	
-	private static Array1 my=new Array1();
+	private static Array1 my;
 	
 	public static Array1 getInstance(){
+		if (my==null){
+			return my=new Array1();
+		}
 		return my;
 	}
 

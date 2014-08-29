@@ -6,9 +6,12 @@ import java.util.List;
 
 public class AP1 {
 	
-	private static AP1 my=new AP1();
+	private static AP1 my;
 	
 	public static AP1 getInstance(){
+		if (my==null){
+			return my=new AP1();
+		}
 		return my;
 	}
 

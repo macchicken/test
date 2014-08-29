@@ -2,9 +2,12 @@ package codingbat;
 
 public class Logic1 {
 	
-	private static Logic1 my=new Logic1();
+	private static Logic1 my;
 	
 	public static Logic1 getInstance(){
+		if (my==null) {
+			return my = new Logic1();
+		}
 		return my;
 	}
 
