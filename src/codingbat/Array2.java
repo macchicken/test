@@ -159,7 +159,133 @@ public class Array2 {
 		}
 		return count==3;
 	}
+	
+	private int[] notAlone(int[] nums, int val){
+		int len=nums.length;
+		if (len<3){return nums;}
+		int[] result=new int[len];
+		int i=1;
+		while(i<len){
+			result[i-1]=nums[i-1];
+			if (nums[i]==val&&i+1<len&&nums[i-1]!=nums[i]&&nums[i+1]!=nums[i]){
+				result[i+1]=nums[i+1];
+				result[i]=Math.max(nums[i-1], nums[i+1]);
+				i+=2;
+			}else{
+				result[i]=nums[i];
+				i++;
+			}
+		}
+		return result;
+	}
 
+	private int[] zeroFront(int[] nums){
+		int[] result=new int[nums.length];
+		int zeroIndex=0;
+		for (int i=0;i<nums.length;i++){
+			if (nums[i]==0){
+				result[i]=result[zeroIndex];
+				result[zeroIndex]=0;
+				zeroIndex++;
+			}
+			else{result[i]=nums[i];}
+		}
+		return result;
+	}
+
+	private int[] withoutTen(int[] nums) {
+		int[] result=new int[nums.length];
+		int resultIndex=0;
+		for (int i=0;i<nums.length;i++){
+			if (nums[i] != 10) {
+				result[resultIndex] = nums[i];
+				resultIndex++;
+			}
+		}
+		return result;
+	}
+
+	private int[] evenOdd(int[] nums){
+		int[] result=new int[nums.length];
+		int evenIndex=0;
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i]%2==0){
+				result[i]=result[evenIndex];
+				result[evenIndex]=nums[i];
+				evenIndex++;
+			}else{result[i]=nums[i];}
+		}
+		return result;
+	}
+
+	private String[] fizzBuzz(int start, int end){
+		int len=end-start;
+		if (len<0){return new String[0];}
+		String[] result=new String[len];
+		for (int i=0,increment=start;i<len&&increment<end;increment++,i++){
+			if (increment%15==0){result[i]="FizzBuzz";}
+			else if (increment%3==0){result[i]="Fizz";
+			}else if(increment%5==0){result[i]="Buzz";}
+			else{result[i]=String.valueOf(increment);}
+		}
+		return result;
+	}
+
+	private int centeredAverage(int[] nums){
+		int len=nums.length;
+		if (len<3){return 0;}
+		int sum=nums[0],min=nums[0],max=nums[0];
+		for (int i=1;i<len;i++){
+			sum+=nums[i];
+			if (nums[i]<=min){min=nums[i];}
+			else if (nums[i]>=max){max=nums[i];}
+		}
+		return (sum-min-max)/(len-2);
+	}
+
+	private int sum13(int[] nums){
+		int sum=0,i=0;
+		while(i<nums.length){
+			if (nums[i]!=13){sum+=nums[i];i++;}
+			else{i+=2;}
+		}
+		return sum;
+	}
+
+	private int sum67(int[] nums){
+		int sum=0;
+		boolean prevSix=false;
+		for (int num:nums){
+			if (num==6){prevSix=true;}
+			else if (prevSix&&num==7){prevSix=false;}
+			else if (!prevSix){sum+=num;}
+		}
+		return sum;
+	}
+
+	private boolean has22(int[] nums){
+		boolean prevTwo=false;
+		for (int num:nums){
+			if (num==2&&prevTwo){return true;}
+			prevTwo=(num==2);
+		}
+		return false;
+	}
+
+	private boolean lucky13(int[] nums){
+		for (int num:nums){
+			if (num==1||num==3){return false;}
+		}
+		return true;
+	}
+
+	private  boolean sum28(int[] nums){
+		int total=8/2,count=0;
+		for (int num:nums){
+			if (num==2){count++;}
+		}
+		return count==total;
+	}
 
 	private int bigDiff(int[] nums){
 		if (nums!=null){
@@ -321,6 +447,145 @@ public class Array2 {
 		int[] nums3={1, 4, 4};
 		int[] expected3={1};
 		System.out.println(Arrays.equals(expected3,pre4(nums3)));
+	}
+
+	public void testnotAlone(){
+		int[] nums={1, 2, 3};
+		int[] expected={1, 3, 3};
+		System.out.println(Arrays.equals(expected,notAlone(nums,2)));
+		int[] nums2={1, 2, 3, 2, 5, 2};
+		int[] expected2={1, 3, 3, 5, 5, 2};
+		System.out.println(Arrays.equals(expected2,notAlone(nums2,2)));
+		int[] nums3={3, 4};
+		int[] expected3={3, 4};
+		System.out.println(Arrays.equals(expected3,notAlone(nums3,3)));
+		int[] nums4={1};
+		int[] expected4={1};
+		System.out.println(Arrays.equals(expected4,notAlone(nums4,2)));
+	}
+
+	public void testzeroFront(){
+		int[] nums={1, 0, 0, 1};
+		int[] expected={0, 0, 1, 1};
+		System.out.println(Arrays.equals(expected,zeroFront(nums)));
+		int[] nums2={0, 1, 1, 0, 1};
+		int[] expected2={0, 0, 1, 1, 1};
+		System.out.println(Arrays.equals(expected2,zeroFront(nums2)));
+		int[] nums3={1, 0};
+		int[] expected3={0, 1};
+		System.out.println(Arrays.equals(expected3,zeroFront(nums3)));
+		int[] nums4={1};
+		int[] expected4={1};
+		System.out.println(Arrays.equals(expected4,zeroFront(nums4)));
+	}
+
+	public void testwithoutTen(){
+		int[] nums={1, 10, 10, 2};
+		int[] expected={1, 2, 0, 0};
+		System.out.println(Arrays.equals(expected,withoutTen(nums)));
+		int[] nums2={10, 2, 10};
+		int[] expected2={2, 0, 0};
+		System.out.println(Arrays.equals(expected2,withoutTen(nums2)));
+		int[] nums3={1, 99, 10};
+		int[] expected3={1, 99, 0};
+		System.out.println(Arrays.equals(expected3,withoutTen(nums3)));
+		int[] nums4={1, 2, 3, 4};
+		int[] expected4={1, 2, 3, 4};
+		System.out.println(Arrays.equals(expected4,zeroFront(nums4)));
+	}
+
+	public void testevenOdd(){
+		int[] nums={1, 0, 1, 0, 0, 1, 1};
+		int[] expected={0, 0, 0, 1, 1, 1, 1};
+		System.out.println(Arrays.equals(expected,evenOdd(nums)));
+		int[] nums2={3, 3, 2};
+		int[] expected2={2, 3, 3};
+		System.out.println(Arrays.equals(expected2,evenOdd(nums2)));
+		int[] nums3={2, 2, 2};
+		int[] expected3={2, 2, 2};
+		System.out.println(Arrays.equals(expected3,evenOdd(nums3)));
+		int[] nums4={1, 0, 3};
+		int[] expected4={0, 1, 3};
+		System.out.println(Arrays.equals(expected4,evenOdd(nums4)));
+	}
+
+	public void testfizzBuzz(){
+		String[] expected={"1", "2", "Fizz", "4", "Buzz"};
+		System.out.println(Arrays.equals(expected,fizzBuzz(1, 6)));
+		String[] expected2={"1", "2", "Fizz", "4", "Buzz", "Fizz", "7"};
+		System.out.println(Arrays.equals(expected2,fizzBuzz(1, 8)));
+		String[] expected3={"1", "2", "Fizz", "4", "Buzz", "Fizz", "7", "8", "Fizz", "Buzz"};
+		System.out.println(Arrays.equals(expected3,fizzBuzz(1, 11)));
+		String[] expected4={"Buzz" ,"Fizz" ,"82", "83", "Fizz"};
+		System.out.println(Arrays.equals(expected4,fizzBuzz(80, 85)));
+	}
+
+	public void testcenteredAverage(){
+		int[] nums={1, 2, 3, 4, 100};
+		System.out.println(3==centeredAverage(nums));
+		int[] nums2={1, 1, 5, 5, 10, 8, 7};
+		System.out.println(5==centeredAverage(nums2));
+		int[] nums3={-10, -4, -2, -4, -2, 0};
+		System.out.println(-3==centeredAverage(nums3));
+	}
+
+	public void testsum13(){
+		int[] nums={1, 2, 2, 1};
+		System.out.println(6==sum13(nums));
+		int[] nums2={1, 1};
+		System.out.println(2==sum13(nums2));
+		int[] nums3={1, 2, 2, 1, 13};
+		System.out.println(6==sum13(nums3));
+		int[] nums4={1, 2, 13, 2, 1, 13};
+		System.out.println(4==sum13(nums4));
+		int[] nums5={13, 1, 2, 13, 2, 1, 13};
+		System.out.println(3==sum13(nums5));
+	}
+
+	public void testsum67(){
+		int[] nums={1, 2, 2};
+		System.out.println(5==sum67(nums));
+		int[] nums2={1, 2, 2, 6, 99, 99, 7};
+		System.out.println(5==sum67(nums2));
+		int[] nums3={1, 1, 6, 7, 2};
+		System.out.println(4==sum67(nums3));
+		int[] nums4={7, 6, 7};
+		System.out.println(7==sum67(nums4));
+		int[] nums5={6, 6, 7, 1};
+		System.out.println(1==sum67(nums5));
+	}
+
+	public void testhas22(){
+		int[] nums={1, 2, 2};
+		System.out.println(true==has22(nums));
+		int[] nums2={1, 2, 1, 2};
+		System.out.println(false==has22(nums2));
+		int[] nums3={2, 1, 2};
+		System.out.println(false==has22(nums3));
+		int[] nums4={2, 1};
+		System.out.println(false==has22(nums4));
+	}
+
+	public void testlucky13(){
+		int[] nums={0, 2, 4};
+		System.out.println(true==lucky13(nums));
+		int[] nums2={1, 2, 3};
+		System.out.println(false==lucky13(nums2));
+		int[] nums3={1, 2, 4};
+		System.out.println(false==lucky13(nums3));
+		int[] nums4={};
+		System.out.println(true==lucky13(nums4));
+	}
+
+	public void testsum28(){
+		int[] nums={2, 3, 2, 2, 4, 2};
+		System.out.println(true==sum28(nums));
+		int[] nums2={2, 3, 2, 2, 4, 2, 2};
+		System.out.println(false==sum28(nums2));
+		int[] nums3={1, 2, 3, 4};
+		System.out.println(false==sum28(nums3));
+		int[] nums4={};
+		System.out.println(false==sum28(nums4));
 	}
 
 	public void testbigDiff(){
