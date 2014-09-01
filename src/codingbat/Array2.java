@@ -56,10 +56,15 @@ public class Array2 {
 	
 	private boolean has77(int[] nums){
 		if (nums.length<2){return false;}
-		for (int i=0;i<nums.length;i++){
-			if (nums[i]==7&&i+1<nums.length&&nums[i+1]==7){return true;}
-			if (i+2<nums.length){
-				if (nums[i]==7&&nums[i+2]==7){return true;}
+		int count=0;
+		boolean prevSeven=nums[0]==7;
+		for (int i=1;i<nums.length;i++){
+			if (nums[i]==7){
+				if (prevSeven){return true;}
+				prevSeven=true;
+			}else{
+				if (count==1){count=0;prevSeven=false;}
+				else if (prevSeven){count++;}
 			}
 		}
 		return false;
@@ -80,6 +85,81 @@ public class Array2 {
 		}
 		return result;
 	}
+
+	private boolean modThree(int[] nums){
+		int oddC=0,evenC=0;
+		for (int num:nums){
+			if (num%2==0){
+				oddC=0;evenC++;
+				if (evenC==3){return true;}
+			}else{
+				evenC=0;oddC++;
+				if (oddC==3){return true;}
+			}
+		}
+		return false;
+	}
+
+	private boolean twoTwo(int[] nums) {
+		int count=0;
+		int prevI=0;
+		for (int i=0;i<nums.length;i++){
+			if(nums[i]==2){
+				if (i-prevI>1){return false;}
+				prevI=i;
+				count++;
+			}
+		}
+		return count==0||count>1;
+	}
+
+	private boolean tripleUp(int[] nums){
+		if (nums.length<2){return false;}
+		int count=0;
+		for (int i = 1; i < nums.length; i++) {
+			if (nums[i]-nums[i-1]==1){count++;}
+			else if(count>0){count--;}
+			if (count==2){return true;}
+		}
+		return false;
+	}
+
+	private int[] fizzArray3(int start, int end){
+		if (end<start){return new int[0];}
+		int[] result=new int[end-start];
+		int increment=start;
+		for (int i = 0; i < result.length; i++) {
+			result[i]=increment;
+			increment+=1;
+		}
+		return result;
+	}
+
+	private int[] pre4(int[] nums){
+		int[] result=new int[0];
+		for (int i=0;i<nums.length;i++){
+			if (nums[i]==4){
+				result=new int[i];
+				for (int j=0;j<i;j++){result[j]=nums[j];}
+				return result;
+			}
+		}
+		return result;
+	}
+
+	private boolean haveThree(int[] nums){
+		int count=0;
+		boolean preThree=false;
+		for (int num:nums){
+			if (num==3){
+				if (!preThree) {preThree=true;count++;}
+				else{count=0;}
+			}
+			else{preThree=false;}
+		}
+		return count==3;
+	}
+
 
 	private int bigDiff(int[] nums){
 		if (nums!=null){
@@ -159,11 +239,11 @@ public class Array2 {
 	
 	public void testhas77(){
 		int[] nums={1, 7, 7};
-		System.out.println(has77(nums));
+		System.out.println(true==has77(nums));
 		int[] nums2={1, 7, 1, 7};
-		System.out.println(has77(nums2));
-		int[] nums3={1, 7, 1, 1, 7};
-		System.out.println(has77(nums3));
+		System.out.println(true==has77(nums2));
+		int[] nums3={7, 2, 6, 2, 2, 7};
+		System.out.println(false==has77(nums3));
 	}
 
 	public void testpost4(){
@@ -176,6 +256,71 @@ public class Array2 {
 		int[] nums3={4, 4, 1, 2, 3};
 		int[] result3={1, 2, 3};
 		System.out.println(Arrays.equals(result3,post4(nums3)));
+	}
+
+	public void testmodThree(){
+		int[] nums={2, 1, 3, 5};
+		System.out.println(true==modThree(nums));
+		int[] nums2={2, 1, 2, 5};
+		System.out.println(false==modThree(nums2));
+		int[] nums3={2, 4, 2, 5};
+		System.out.println(true==modThree(nums3));
+	}
+
+	public void testhaveThree(){
+		int[] nums={3, 1, 3, 1, 3};
+		System.out.println(true==haveThree(nums));
+		int[] nums2={3, 1, 3, 3};
+		System.out.println(false==haveThree(nums2));
+		int[] nums3={3, 4, 3, 3, 4};
+		System.out.println(false==haveThree(nums3));
+		int[] nums4={1, 3, 1, 3, 1, 3, 4, 3};
+		System.out.println(false==haveThree(nums4));
+	}
+
+	public void testtwoTwo(){
+		int[] nums={4, 2, 2, 3};
+		System.out.println(true==twoTwo(nums));
+		int[] nums2={2, 2, 4};
+		System.out.println(true==twoTwo(nums2));
+		int[] nums3={2, 2, 4, 2};
+		System.out.println(false==twoTwo(nums3));
+	}
+
+	public void testtripleUp(){
+		int[] nums={1, 4, 5, 6, 2};
+		System.out.println(true==tripleUp(nums));
+		int[] nums2={1, 2, 3};
+		System.out.println(true==tripleUp(nums2));
+		int[] nums3={1, 2, 4};
+		System.out.println(false==tripleUp(nums3));
+		int[] nums4={1, 2, 4, 5, 7, 6, 5, 7, 7, 6};
+		System.out.println(false==tripleUp(nums4));
+		int[] nums5={10, 9, 8, -100, -99, 99, 100};
+		System.out.println(false==tripleUp(nums5));
+		int[] nums6={2, 3, 5, 6, 8, 9, 2, 3};
+		System.out.println(false==tripleUp(nums6));
+	}
+
+	public void testfizzArray3(){
+		int[] expected={5, 6, 7, 8, 9};
+		System.out.println(Arrays.equals(expected,fizzArray3(5,10)));
+		int[] expected2={11, 12, 13, 14, 15, 16, 17};
+		System.out.println(Arrays.equals(expected2,fizzArray3(11,18)));
+		int[] expected3={1, 2};
+		System.out.println(Arrays.equals(expected3,fizzArray3(1,3)));
+	}
+
+	public void testpre4(){
+		int[] nums={1, 2, 4, 1};
+		int[] expected={1, 2};
+		System.out.println(Arrays.equals(expected,pre4(nums)));
+		int[] nums2={3, 1, 4};
+		int[] expected2={3, 1};
+		System.out.println(Arrays.equals(expected2,pre4(nums2)));
+		int[] nums3={1, 4, 4};
+		int[] expected3={1};
+		System.out.println(Arrays.equals(expected3,pre4(nums3)));
 	}
 
 	public void testbigDiff(){

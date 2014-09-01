@@ -7,7 +7,7 @@ public class BatQ {
 	public static void main(String[] args) {
 		String packageName="codingbat.";
 		try {
-			PlayTest.runTest(packageName+"Array2", "post4");
+			PlayTest.runTest(packageName+"Array2", "pre4");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
