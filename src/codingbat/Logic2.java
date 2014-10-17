@@ -1,6 +1,5 @@
 package codingbat;
 
-import java.util.Arrays;
 
 public class Logic2 {
 
