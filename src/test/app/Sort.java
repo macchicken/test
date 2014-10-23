@@ -1,5 +1,6 @@
 package test.app;
 
+
 public class Sort {
 	
 	private int partition(int arr[], int left, int right)
@@ -27,6 +28,52 @@ public class Sort {
 	      int index = partition(arr, left, right);
 	      if (left < index - 1){quickSort(arr, left, index - 1);}
 	      if (index < right){quickSort(arr, index, right);}
+	}
+
+	public int[] merge(int[] left, int[] right) {
+		int l = 0, r = 0;
+		int i = 0;
+		int[] result = new int[left.length + right.length];
+		while (l < left.length && r < right.length) {
+			if (left[l] < right[r]) {
+				result[i] = left[l];
+				l++;
+			} else {
+				result[i] = right[r];
+				r++;
+			}
+			i++;
+		}
+		if (l < left.length) {
+			for (; l < left.length; l++) {
+				result[i++] = left[l];
+			}
+		} else if (r < right.length) {
+			for (; r < right.length; r++) {
+				result[i++] = right[r];
+			}
+		}
+		return result;
+	}
+
+	public int[] mergeSort(int[] arr) {
+		// base case:
+		if (arr.length < 2) return arr;
+		// divide into halves
+		int pivot = arr.length / 2;
+		int[] left = new int[pivot];
+		int[] right = new int[arr.length - pivot];
+		for (int l = 0; l < left.length; l++) {
+			left[l] = arr[l];
+		}
+		for (int r = 0; r < right.length; r++) {
+			right[r] = arr[pivot + r];
+		}
+		// sort the two halves recursively
+		left = mergeSort(left);
+		right = mergeSort(right);
+		// merge the sorted halves into one sorted array
+		return merge(left, right);
 	}
 
 	/*
@@ -170,12 +217,20 @@ public class Sort {
 	public static void main(String args[]){
 //		compareSortingSteps();
 //		compareSortingSteps2();
-//		comparisonOfRunningtimes();
-		double oneMicrosecond=Math.pow(10, -6);
-		double oneSecond=1;
-		double unit=oneSecond/oneMicrosecond;
-		double unit2=Math.pow(10, 6);
-		System.out.println(unit==unit2);
+		comparisonOfRunningtimes();
+//		double oneMicrosecond=Math.pow(10, -6);
+//		double oneSecond=1;
+//		double unit=oneSecond/oneMicrosecond;
+//		double unit2=Math.pow(10, 6);
+//		System.out.println(unit==unit2);
+//		Sort sort=new Sort();
+//		int[] arr={5,4,2,2,7,1,10};
+//		int[] arr2={5,4,2,2,7,1,10};
+//		sort.quickSort(arr, 0, arr.length-1);
+//		int[] result=sort.mergeSort(arr2);
+//		System.out.println(Arrays.toString(arr));
+//		System.out.println(Arrays.toString(result));
+		
 	}
 
 }
