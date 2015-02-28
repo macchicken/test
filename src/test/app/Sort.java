@@ -1,8 +1,11 @@
 package test.app;
 
+import java.util.regex.Pattern;
+
 
 public class Sort {
 	
+
 	private int partition(int arr[], int left, int right)
 	{
 	      int i = left, j = right;
@@ -217,7 +220,7 @@ public class Sort {
 	public static void main(String args[]){
 //		compareSortingSteps();
 //		compareSortingSteps2();
-		comparisonOfRunningtimes();
+//		comparisonOfRunningtimes();
 //		double oneMicrosecond=Math.pow(10, -6);
 //		double oneSecond=1;
 //		double unit=oneSecond/oneMicrosecond;
@@ -230,7 +233,10 @@ public class Sort {
 //		int[] result=sort.mergeSort(arr2);
 //		System.out.println(Arrays.toString(arr));
 //		System.out.println(Arrays.toString(result));
-		
+		Pattern emailP = Pattern.compile("[\\w]+[@][\\S]+");
+		Pattern nameP = Pattern.compile("[\\w]+");
+		System.out.println(emailP.matcher("sss@").matches());
+		System.out.println(nameP.matcher("  ").matches());
 	}
 
 }
