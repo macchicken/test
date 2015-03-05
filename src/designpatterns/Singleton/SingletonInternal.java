@@ -13,7 +13,7 @@ public class SingletonInternal {
 
 	private SingletonInternal() {}
 
-	public static final SingletonInternal getInstance() {
+	public static SingletonInternal getInstance() {
 		return SingletonHolder.INSTANCE;
 	}
 }
