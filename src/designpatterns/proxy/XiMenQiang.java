@@ -6,7 +6,7 @@ public class XiMenQiang {
 		WangPo wangPo = new WangPo();// could only initial the PROXY
 		wangPo.makeEyesWithMan();
 		wangPo.happyWithMan(500);
-		wangPo = new WangPo(new JiaShi());
+		wangPo = new WangPo("JiaShi");
 		wangPo.makeEyesWithMan();
 		wangPo.happyWithMan(500);
 	}
