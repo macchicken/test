@@ -4,12 +4,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
+import test.element.Gender;
 import test.element.Student;
 
 public class Testdate {
@@ -200,5 +202,17 @@ public class Testdate {
 		System.out.println(time1.get(Calendar.YEAR));
 		System.out.println(time1.get(Calendar.MONTH));
 		System.out.println(time1.get(Calendar.DAY_OF_MONTH));
+		System.out.println(Gender.FEMALE.ordinal());
+		System.out.println(Gender.MALE.ordinal());
+		String[][] tmmmmmmmm= new String[2][3];
+		tmmmmmmmm[1][2]="3121321";
+		System.out.println(tmmmmmmmm[1][2]);
+		System.out.println(tmmmmmmmm.length);
+		System.out.println(tmmmmmmmm[0].length);
+		Date tempppppppppp=new Date();
+		System.out.println(tempppppppppp);
+		SimpleDateFormat formator=new SimpleDateFormat("MMMMMMMMM dd,yyyy",Locale.ENGLISH);
+		System.out.println(formator.format(tempppppppppp));
+		
 	    }
 }

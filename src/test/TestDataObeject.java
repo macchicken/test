@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import designpatterns.Singleton.SingletonInternal;
+import test.element.Step;
+
 
 public class TestDataObeject {
 	
@@ -62,6 +65,9 @@ public class TestDataObeject {
 		System.out.println("dataList2--------"+dataList2);
 		TestDataObeject test =new TestDataObeject();
 		test.testParseArrayList(dataList2);
+		int totalrating=1;
+		float testfff=Float.valueOf(Integer.toString(totalrating))/5;
+		System.out.println(testfff);
 	}
 
 }
