@@ -2,10 +2,6 @@ package test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-
-import designpatterns.Singleton.SingletonInternal;
-import test.element.Step;
 
 
 public class TestDataObeject {
@@ -34,7 +30,7 @@ public class TestDataObeject {
 		System.out.println("result--------"+result);
 	}
 	
-	
+	private static int convert(boolean value){ if(value) return 1; else return 0;}
 	/**
 	 * @param args
 	 */
@@ -68,6 +64,11 @@ public class TestDataObeject {
 		int totalrating=1;
 		float testfff=Float.valueOf(Integer.toString(totalrating))/5;
 		System.out.println(testfff);
+		boolean testiiii=true;
+		for (int i = 0; i < 2; i++) {
+			System.out.println(convert(testiiii));
+			testiiii=!testiiii;
+		}
 	}
 
 }

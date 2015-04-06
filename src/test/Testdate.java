@@ -213,6 +213,5 @@ public class Testdate {
 		System.out.println(tempppppppppp);
 		SimpleDateFormat formator=new SimpleDateFormat("MMMMMMMMM dd,yyyy",Locale.ENGLISH);
 		System.out.println(formator.format(tempppppppppp));
-		
 	    }
 }
