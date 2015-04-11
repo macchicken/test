@@ -1,6 +1,6 @@
 package test.resturant;
 
-public class Customer {
+public class Customer implements Cloneable{
 
 	private String name;
 	private String phone;
@@ -29,9 +29,18 @@ public class Customer {
 		this.phone = phone;
 	}
 
-	public Order receiveOrder(Order order) {
-		return this.order=order;
+	public void receiveOrder(Order order) {
+		this.order=order;
 	}
 
+	public Order eat() throws CloneNotSupportedException{
+		Order order=(Order) this.order.clone();
+		this.order=null;
+		return order;
+	}
 
+	@Override
+	public String toString() {
+		return "Customer [name=" + name + ", phone=" + phone+"]";
+	}
 }

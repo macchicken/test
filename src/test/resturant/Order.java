@@ -1,6 +1,6 @@
 package test.resturant;
 
-public class Order {
+public class Order implements Cloneable{
 
 	private String orderId;
 	private boolean done;
@@ -49,8 +49,19 @@ public class Order {
 		this.customer=customer;
 	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
 	public Customer getCustomer() {
 		return customer;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", done=" + done + ", name="
+				+ name + ", amount=" + amount + ", customer=" + customer + "]";
 	}
 
 	

@@ -2,7 +2,7 @@ package test.resturant;
 
 import java.util.ArrayList;
 
-public class Pizza {
+public class Pizza implements Cloneable{
 
 	public String name;
 	private ArrayList<Topping> toppings;
