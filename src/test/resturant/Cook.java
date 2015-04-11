@@ -8,6 +8,7 @@ public class Cook extends Employee implements Runnable{
 	private ThreadLocal<Order> workingOrder = new ThreadLocal<Order>(){};
 	private ArrayList<Order> assignedOrders=new ArrayList<Order>();
 	private int time;
+	private int count;
 	
 	public Cook(String name, double salary) {
 		super(name, salary);
@@ -26,6 +27,10 @@ public class Cook extends Employee implements Runnable{
 	public ArrayList<Order> getCompletedOrders(int start){
 		return new ArrayList<Order>(assignedOrders.subList(start, assignedOrders.size()));
 }
+
+	public int getCount() {
+		return count;
+	}
 
 	// actual cook process
 	@Override
@@ -48,6 +53,7 @@ public class Cook extends Employee implements Runnable{
 				}
 				order.setDone(true);
 				workingOrder.set(order);
+				count++;
 				System.out.println(this.name + " done the order "+ order.getName());
 			}
 		}

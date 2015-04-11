@@ -6,7 +6,8 @@ import java.util.HashMap;
 public class Operator extends Employee implements Runnable{
 
 	private HashMap<String,Order> orders=new HashMap<String,Order>();
-	private Cook cook;
+	private ArrayList<Cook> cook=new ArrayList<Cook>();
+
 	
 	public Operator() {
 		super();
@@ -18,7 +19,7 @@ public class Operator extends Employee implements Runnable{
 
 	public void placeOrder(Order order,Cook cook) throws CloneNotSupportedException{
 		orders.put(order.getOrderId(), (Order) order.clone());
-		this.cook=cook;
+		this.cook.add(cook);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -28,20 +29,23 @@ public class Operator extends Employee implements Runnable{
 
 	@Override
 	public void run() {
-		int count=0;
-		ArrayList<Order> completedOrders=null;
-		while (count<orders.size()) {
-				completedOrders = cook.getCompletedOrders(count);
+		int count=0;ArrayList<Order> completedOrders=null;
+		while(count<orders.size()){
+			for (Cook ck:cook){
+				completedOrders = ck.getCompletedOrders();
 				for (Order order : completedOrders) {
 					if (!order.isDone()) {
 						System.out.println(order.getName() + " is still cooking");
 					} else {
-						orders.put(order.getOrderId(), order);
-						order.getCustomer().receiveOrder(order);
-						System.out.println(order.getCustomer().getName()+ " received order " + order);
-						count++;
+						if (!orders.get(order.getOrderId()).isDone()) {
+							orders.put(order.getOrderId(), order);
+							order.getCustomer().receiveOrder(order);
+							System.out.println(order.getCustomer().getName()+ " received order " + order);
+							count += ck.getCount();
+						}
 					}
 				}
+			}
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {

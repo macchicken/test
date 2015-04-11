@@ -34,15 +34,16 @@ public class Client {
 		Pizza porder2=pizzaMenu.getItem("Warrior Mixed Mage Pizza");
 		if (porder!=null&&porder2!=null) {
 			Operator taylor = ((PizzaRestaurant)pizzaRestaurant).getPhoneOperator();
+			Cook kaydee = ((PizzaRestaurant)pizzaRestaurant).getCook("Kaydee");
+			Cook robin = ((PizzaRestaurant)pizzaRestaurant).getCook("Robin");
 			Order one = new Order("1", porder, 2, tyler);
 			Order two = new Order("2", porder2, 2, tyler);
-			Cook kaydee = ((PizzaRestaurant)pizzaRestaurant).getCook("Kaydee");
-			System.out.println(taylor.name+" is dealing with order "+porder);
 			taylor.placeOrder(one,kaydee);
-			taylor.placeOrder(two,kaydee);
+			taylor.placeOrder(two,robin);
 			kaydee.getOrder(one,1);
-			kaydee.getOrder(two,2);
+			robin.getOrder(two,2);
 			new Thread(kaydee).start();
+			new Thread(robin).start();
 			new Thread(taylor).start();
 		}
 	}
