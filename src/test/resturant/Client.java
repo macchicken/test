@@ -30,18 +30,24 @@ public class Client {
 	public static void main(String[] args) throws Exception {
 		initRestaurant();initMenu();
 		Customer tyler=new Customer("Tyler","13825259516");
-		Pizza porder=pizzaMenu.getItem("Mixed Mage Pizza");
-		Pizza porder2=pizzaMenu.getItem("Warrior Mixed Mage Pizza");
-		if (porder!=null&&porder2!=null) {
+		Pizza p1=pizzaMenu.getItem("Mixed Mage Pizza");
+		Pizza p2=pizzaMenu.getItem("Warrior Mixed Mage Pizza");
+		if (p1!=null&&p2!=null) {
 			Operator taylor = ((PizzaRestaurant)pizzaRestaurant).getPhoneOperator();
 			Cook kaydee = ((PizzaRestaurant)pizzaRestaurant).getCook("Kaydee");
 			Cook robin = ((PizzaRestaurant)pizzaRestaurant).getCook("Robin");
-			Order one = new Order("1", porder, 2, tyler);
-			Order two = new Order("2", porder2, 2, tyler);
+			Order one = new Order("1", p1, 2, tyler);
+			Order two = new Order("2", p2, 2, tyler);
+			Order three = new Order("3", p1, 2, tyler);
+			Order four = new Order("4", p2, 2, tyler);
 			taylor.placeOrder(one,kaydee);
 			taylor.placeOrder(two,robin);
+			taylor.placeOrder(three,kaydee);
+			taylor.placeOrder(four,robin);
 			kaydee.getOrder(one,1);
+			kaydee.getOrder(three,1);
 			robin.getOrder(two,2);
+			robin.getOrder(four,2);
 			new Thread(kaydee).start();
 			new Thread(robin).start();
 			new Thread(taylor).start();

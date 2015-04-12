@@ -2,6 +2,7 @@ package test.resturant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Operator extends Employee implements Runnable{
 
@@ -29,30 +30,30 @@ public class Operator extends Employee implements Runnable{
 
 	@Override
 	public void run() {
-		int count=0;ArrayList<Order> completedOrders=null;
+		int count=0;LinkedList<Order> completedOrders=null;
 		while(count<orders.size()){
 			for (Cook ck:cook){
-				completedOrders = ck.getCompletedOrders();
-				for (Order order : completedOrders) {
-					if (!order.isDone()) {
-						System.out.println(order.getName() + " is still cooking");
-					} else {
-						if (!orders.get(order.getOrderId()).isDone()) {
-							orders.put(order.getOrderId(), order);
-							order.getCustomer().receiveOrder(order);
-							System.out.println(order.getCustomer().getName()+ " received order " + order);
-							count += ck.getCount();
+				try {
+					completedOrders = ck.getCompletedOrders();
+					if (completedOrders==null){continue;}
+					for (Order order : completedOrders) {
+						try {
+							if (!orders.get(order.getOrderId()).isDone()) {
+								orders.put(order.getOrderId(), order);
+								order.getCustomer().receiveOrder(order);
+								System.out.println(order.getCustomer().getName()+ " received order " + order);
+								count++;
+							}
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
 						}
-					}
 				}
-			}
-			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				System.out.println("Operator thread error " + e.getMessage());
 			}
 		}
-	}
+	}}
 
 	@Override
 	public String toString() {

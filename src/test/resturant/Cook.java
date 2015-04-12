@@ -1,6 +1,7 @@
 package test.resturant;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class Cook extends Employee implements Runnable{
@@ -8,7 +9,6 @@ public class Cook extends Employee implements Runnable{
 	private ThreadLocal<Order> workingOrder = new ThreadLocal<Order>(){};
 	private ArrayList<Order> assignedOrders=new ArrayList<Order>();
 	private int time;
-	private int count;
 	
 	public Cook(String name, double salary) {
 		super(name, salary);
@@ -19,18 +19,23 @@ public class Cook extends Employee implements Runnable{
 		this.time=time<=0?1:time;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public ArrayList<Order> getCompletedOrders(){
-			return (ArrayList<Order>) assignedOrders.clone();
+	public LinkedList<Order> getCompletedOrders() throws InterruptedException{
+			LinkedList<Order> completedOrders=null;
+			try {
+				completedOrders = new LinkedList<Order>();
+				for (Order o:assignedOrders){
+					if(o.isDone()){completedOrders.add((Order) o.clone());}
+				}
+			} catch (CloneNotSupportedException e) {
+				throw new InterruptedException(e.getMessage());
+			}
+			return completedOrders;
 	}
 	
 	public ArrayList<Order> getCompletedOrders(int start){
 		return new ArrayList<Order>(assignedOrders.subList(start, assignedOrders.size()));
-}
-
-	public int getCount() {
-		return count;
 	}
+
 
 	// actual cook process
 	@Override
@@ -53,8 +58,7 @@ public class Cook extends Employee implements Runnable{
 				}
 				order.setDone(true);
 				workingOrder.set(order);
-				count++;
-				System.out.println(this.name + " done the order "+ order.getName());
+				System.out.println(this.name + " done the order "+ order);
 			}
 		}
 	}
