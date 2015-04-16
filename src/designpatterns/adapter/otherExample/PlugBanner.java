@@ -1,6 +1,6 @@
 package designpatterns.adapter.otherExample;
 
-public class PlugBanner {
+public class PlugBanner implements Print{
 
 	private Banner banner;
 
@@ -9,12 +9,14 @@ public class PlugBanner {
 		this.banner = new Banner(text);
 	}
 	
-	public void ShowLocal(){
-		banner.printWeek();
+	@Override
+	public void printWeak() {
+		banner.showWithParen();
 	}
-	
-	public void ShowStrong(){
-		banner.printStrong();
+
+	@Override
+	public void printStrong() {
+		banner.showWithAster();
 	}
 	
 }

@@ -9,12 +9,12 @@ public class Banner {
 		this.text = text;
 	}
 	
-	public void printWeek(){
-		System.out.println("<"+text+">");
+	public void showWithParen(){
+		System.out.println("(" + this.text + ")");
 	}
 	
-	public void printStrong(){
-		System.out.println("<| "+text+" |>");
+	public void showWithAster(){
+		System.out.println("*" + this.text + "*");
 	}
 	
 }

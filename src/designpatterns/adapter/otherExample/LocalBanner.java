@@ -1,16 +1,18 @@
 package designpatterns.adapter.otherExample;
 
-public class LocalBanner extends Banner {
+public class LocalBanner extends Banner implements Print {
 
 	public LocalBanner(String text) {
 		super(text);
 	}
 
-	public void ShowLocal(){
-		super.printWeek();
+	@Override
+	public void printWeak() {
+		super.showWithParen();
 	}
-	
-	public void ShowStrong(){
-		super.printStrong();
+
+	@Override
+	public void printStrong() {
+		super.showWithAster();
 	}
 }

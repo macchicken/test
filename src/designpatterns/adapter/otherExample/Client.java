@@ -3,12 +3,13 @@ package designpatterns.adapter.otherExample;
 public class Client {
 
 	public static void main(String[] args) {
-		LocalBanner llb=new LocalBanner("hello world");
-		llb.ShowLocal();
-		llb.ShowStrong();
-		PlugBanner pgb=new PlugBanner("hello world");
-		pgb.ShowLocal();
-		pgb.ShowStrong();
+		LocalBanner lba=new LocalBanner("hello world");
+		lba.printWeak();
+		lba.printStrong();
+		
+		PlugBanner pba=new PlugBanner("hello world, delegation");
+		pba.printWeak();
+		pba.printStrong();
 	}
 
 }

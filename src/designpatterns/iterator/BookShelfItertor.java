@@ -2,23 +2,24 @@ package designpatterns.iterator;
 
 public class BookShelfItertor implements MyIterator {
 
-	private Book[] books;
+	private BookShelf bsh;
 	private int cur;
 	
 	public BookShelfItertor(BookShelf bsh){
 		super();
-		books=bsh.getBooks();
+		this.bsh=bsh;
 		cur=0;
 	}
 
+
 	@Override
 	public boolean hasNext() {
-		return cur<books.length;
+		return cur<bsh.getLength();
 	}
 
 	@Override
 	public Object next() {
-		if (hasNext()){return books[cur++];}
+		if (hasNext()){return bsh.getBookAt(cur++);}
 		return null;
 	}
 

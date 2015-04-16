@@ -13,6 +13,14 @@ public class BookShelf implements MyComponent {
 		return books;
 	}
 
+	public Book getBookAt(int index){
+		return index<0?null:books[index];
+	}
+
+	public int getLength(){
+		return books.length;
+	}
+
 	@Override
 	public MyIterator createIterator() {
 		return new BookShelfItertor(this);
