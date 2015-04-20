@@ -2,6 +2,7 @@ package test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 
 public class TestDataObeject {
@@ -69,6 +70,29 @@ public class TestDataObeject {
 			System.out.println(convert(testiiii));
 			testiiii=!testiiii;
 		}
+		char[][] matrix=new char[3][2];
+		if (3>matrix.length||2>matrix[2].length){
+			System.out.println("332132321");
+		}
+		char a='b';
+		char b='b';
+		HashMap<String,Object> checkObjs=new HashMap<String,Object>();
+		checkObjs.put("currentPlayer", a);
+		checkObjs.put("matrix", matrix);
+		char c=(Character) checkObjs.get("currentPlayer");
+		char[][] matrix2=(char[][]) checkObjs.get("matrix");
+		System.out.println(c);
+		System.out.println(matrix2);
+		System.out.println(a==b);
+		Pattern numP = Pattern.compile("[1-9][0-9]*[\\s\t\n]*,[\\s\t\n]*[1-9][0-9]*");
+		String str=" 1,   ".trim();
+		System.out.println(numP.matcher(str).matches());
+		char winner=0;
+		int maxDisks=64;
+		int count=63;
+		boolean draw=winner==0&&count==maxDisks;
+		System.out.println("draw");
+		System.out.println(draw);
 	}
 
 }

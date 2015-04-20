@@ -16,11 +16,27 @@ public class ConcretePrototype implements Prototype, Serializable {
 	private Part part;
 	@Override
 	public void printPart() {
-		System.out.println(part);
+		System.out.println("part address: "+this.part);
+		System.out.println("part content: "+this.part.printCotent());
+	}
+
+	@Override
+	public void setPart() {
+		this.part.changePart();
+	}
+
+	@Override
+	public void createNewPart() {
+		this.part=new Part();
 	}
 
 	public ConcretePrototype() {
-		part = new Part();
+		this.part = new Part();
+	}
+
+	@Override
+	public Object shallowClone() throws CloneNotSupportedException{
+		return super.clone();
 	}
 
 	@Override
@@ -40,6 +56,7 @@ public class ConcretePrototype implements Prototype, Serializable {
         return (oi.readObject());
 	}
 
-	class Part implements Serializable {
-		private static final long serialVersionUID = 1L;}
+	
+
+
 }
