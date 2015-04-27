@@ -21,9 +21,9 @@ public class testCommandLine {
 			System.out.println(e.getMessage());
 		}finally{
 			try {
-				br.close();isr.close();System.out.println("close");
+				br.close();System.out.println("close");
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
+				e.printStackTrace();
 			}
 		}
 	}
