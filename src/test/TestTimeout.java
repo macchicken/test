@@ -12,7 +12,9 @@ public class TestTimeout {
 		while (System.currentTimeMillis() < maxTimeMillis && bufferOffset < buf.length) { //til read sth from input
 			int readLength = Math.min(is.available(), buf.length - bufferOffset); //calculate the acutal read length according to what actual read
 			int readResult = is.read(buf, bufferOffset, readLength);
-			if (readResult == -1) {// input closed
+			System.out.println("read result "+readResult);
+			if (readResult == -1) {// there is no more data because the end of the stream has been reached
+				System.out.println("----------input closed----------");
 				break;
 			}
 			bufferOffset += readResult;
@@ -31,7 +33,7 @@ public class TestTimeout {
 	public String readInput(int timeoutMillis) {
 		
 		System.out.println("Waiting for you");
-		byte[] inputData = new byte[10240];//set 10KB, should be enought for a simple console application
+		byte[] inputData = new byte[10240];//set 10KB, should be enough for a simple console application
 		int readLength = 0;
 		try {
 			readLength = readInputStreamWithTimeout(System.in, inputData, timeoutMillis);// wait input
@@ -51,8 +53,8 @@ public class TestTimeout {
         int max=5;
         while(continued){
         	input=testTimeout.readInput(6000);
-        	max--;
-        	System.out.println(input);
+        	if (input!=null) {max--;}
+			System.out.println(input);
         	if (max==0){continued=false;}
         }
     }
