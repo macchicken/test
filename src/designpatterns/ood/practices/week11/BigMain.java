@@ -12,8 +12,8 @@ public class BigMain {
 		long used = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 		BigString bs = new BigString(args[0]);
 		bs.print();
-		BigString bs2 = new BigString(args[0],false);
-		bs2.print();
+		bs = new BigString(args[0],true);
+		bs.print();
 		System.out.println("used memory = " + used);
 		
 	}
