@@ -20,9 +20,14 @@ public class BigCharFactory {
 
 	// generate BigChar instances (these are shared).
 
-	public synchronized BigChar getBigChar(char charname) {
+	public synchronized BigChar getBigChar(char charname,boolean shared) {
 		BigChar bc = (BigChar) pool.get("" + charname);
-		if (bc == null) {
+		if (shared){
+			if (bc == null) {
+				bc = new BigChar(charname); // generate the actual BigChar instance.
+				pool.put("" + charname, bc);
+			}
+		}else{
 			bc = new BigChar(charname); // generate the actual BigChar instance.
 			pool.put("" + charname, bc);
 		}
