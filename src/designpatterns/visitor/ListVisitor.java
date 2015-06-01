@@ -20,6 +20,7 @@ public class ListVisitor extends Visitor {
 			it = directory.iterator();
 		} catch (FileTreatmentException e) {
 			e.printStackTrace();
+			currentDir=savedDir;
 			return;
 		}
 		while(it.hasNext()){
