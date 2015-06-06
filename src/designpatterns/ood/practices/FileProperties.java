@@ -35,7 +35,7 @@ public class FileProperties extends Properties implements FileIO {
 	public void writeToFile(String filename) throws IOException {
 		PrintStream fos=null;
 		try {
-			fos=new PrintStream("D:\\hc105\\workspace\\test\\src\\designpatterns\\ood\\practices\\"+filename);
+			fos=new PrintStream(parentPath+filename);
 			this.store(fos, "written by FileProperties");
 		} catch (Exception e) {
 			e.printStackTrace();

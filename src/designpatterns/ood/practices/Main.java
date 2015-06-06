@@ -5,7 +5,8 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String[] args) {
-		String path="D:\\hc105\\workspace\\test\\src\\designpatterns\\ood\\practices\\";
+		String worDir=System.getProperty("user.dir");
+		String path=worDir+"\\src\\designpatterns\\ood\\practices\\";
 		FileIO f=new FileProperties(path);
 		try {
 			f.readFromFile("file.txt");
