@@ -28,11 +28,11 @@ class OriginalOwner {
 	class Memento{
 		private String state;
 
-		public String getSavedState() {
+		private String getSavedState() {
 			return state;
 		}
 		
-		public Memento(String state) {
+		private Memento(String state) {
 			this.state = state;
 		}
 
