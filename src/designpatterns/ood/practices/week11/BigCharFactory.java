@@ -18,8 +18,7 @@ public class BigCharFactory {
 
 	}
 
-	// generate BigChar instances (these are shared).
-
+	// generate BigChar instances (these are shared and always create new BigChar if not shared).
 	public synchronized BigChar getBigChar(char charname,boolean shared) {
 		BigChar bc = (BigChar) pool.get("" + charname);
 		if (shared){
