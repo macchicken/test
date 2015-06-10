@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 class Directory extends Entry {
 
-	private String name;   
+//	private String name;
     private ArrayList<Entry> directory = new ArrayList<Entry>();
     
     public Directory(String name) { 
@@ -43,18 +43,6 @@ class Directory extends Entry {
 		 directory.add(entry);
 		 entry.parentNode=this;
 		 return this;
-	}
-
-	@Override
-	protected void printFullPath() {
-		StringBuffer temp=new StringBuffer();
-		temp.append("/"+this.name);
-		Entry ent=this.parentNode;
-		while(ent!=null){
-			temp.insert(0, "/"+ent.getName());
-			ent=ent.parentNode;
-		}
-		System.out.println(temp.toString());
 	}
 
 	
