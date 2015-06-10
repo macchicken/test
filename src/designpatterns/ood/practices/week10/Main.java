@@ -28,6 +28,8 @@ class Main {
 		}
 		System.out.println("size of this entry: " +dir.getSize());
 		dir.printList();
+		ood.printFullPath();
+		week10.printFullPath();
 		file1.printFullPath();
 		file2.printFullPath();
 	}
