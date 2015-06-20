@@ -14,11 +14,11 @@ class Client {
 		facadeService.addHandler("SchoolMasterHandler");
 		Random random=new Random();
 		Student[] students=new Student[3];
-		for (int i=0;i<3;i++){
+		for (int i=0;i<students.length;i++){
 			students[i]=new Student(random.nextInt(3)," i am student "+(i+1)+", i need a day off.");
 		}
-		for (int i=0;i<3;i++){
-			facadeService.sendRequest(students[i]);
+		for (Student s:students){
+			facadeService.sendRequest(s);
 		}
 		try {
 			Thread.sleep(5000);
@@ -30,8 +30,8 @@ class Client {
 		facadeService.addHandler("SchoolMasterHandler");// change the chain of handler
 		facadeService.addHandler("TeacherHandler");
 		facadeService.addHandler("SquadLeaderHandler");
-		for (int i=0;i<3;i++){
-			facadeService.sendRequest(students[i]);
+		for (Student s:students){
+			facadeService.sendRequest(s);
 		}
 	}
 
