@@ -27,11 +27,10 @@ public class ProcessHandlerFacade {
 			return;
 		}
 		if (first==null){first=h;}
-		if (current==null){current=h;}
-		else{
+		if (current!=null){
 			current.setNextHandler(h);
-			current=h;
 		}
+		current=h;
 	}
 
 	public void resetHandler(){
