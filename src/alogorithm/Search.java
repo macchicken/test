@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 class Search {
 
+
 	private static class Data{
 		private int[] books;
 		private int[] box;
@@ -14,6 +15,45 @@ class Search {
 			this.books = new int[n+1];
 			this.box = new int[n+1];
 			this.n = n;
+		}
+	}
+
+	private static class Holder{
+		private int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
+		private int rescueP;
+		private int rescueQ;
+		private int n;
+		private int m;
+		private int min=9999;
+		private int[][] books;
+		private int[][] map;
+		
+		Holder(int p,int q,int n,int m) {
+			super();
+			this.rescueP = p;
+			this.rescueQ = q;
+			this.n=n;
+			this.m=m;
+			this.books=new int[n+1][m+1];
+			this.map=new int[n+1][m+1];
+			setObstacle();
+		}
+		
+		private void setObstacle(){
+			this.map[1][3]=1;
+			this.map[3][3]=1;
+			this.map[4][2]=1;
+			this.map[5][4]=1;
+		}
+		
+		void printPath(){
+			for (int i=1;i<=n;i++){
+				for (int j=1;j<=m;j++){
+					if (books[i][j]==1){
+						System.out.print(i+","+j+" ");
+					}
+				}
+			}
 		}
 	}
 
@@ -41,8 +81,7 @@ class Search {
 		}
 	}
 
-
-	public static void main(String[] args) {
+	public static void dfsForAllpossibilities(){
 		Data pokerHolder=new Data(5);
 		Data stickHolder=new Data(9);
 		Function<Data,String> pokerResult=(t)->{
@@ -61,6 +100,40 @@ class Search {
 			return "";
 		};
 		dfs(1,pokerResult,pokerHolder);// start at the beginning
+	}
+
+	private static void rescue(int x,int y,int step,Holder holder){
+		if (x==holder.rescueP&&y==holder.rescueQ){
+			if (step<=holder.min){
+				holder.min=step;
+				holder.printPath();
+				System.out.println();
+			}
+			return;
+		}
+		for (int i=0;i<=3;i++){
+			int tx=x+holder.next[i][0];
+			int ty=y+holder.next[i][1];
+			if (tx <= holder.n && tx >= 1 && ty >= 1 && ty <= holder.m
+					&& holder.books[tx][ty] == 0 && holder.map[tx][ty] == 0) {
+				holder.books[tx][ty] = 1;
+				rescue(tx, ty, step + 1, holder);
+				holder.books[tx][ty] = 0;
+			}
+		}
+	}
+
+	public static void rescueWithDFS(){
+		Holder holder=new Holder(4,3,5,4);
+		holder.books[1][1]=1;
+		rescue(1,1,0,holder);
+		System.out.println(holder.min);
+	}
+	
+
+	public static void main(String[] args) {
+//		dfsForAllpossibilities();
+		rescueWithDFS();
 	}
 
 }
