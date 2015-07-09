@@ -1,9 +1,17 @@
 package alogorithm;
 
-public class Enumeration {
+class Enumeration {
 
+	/**
+	 * 1 is 6 sticks etc til 9
+	 */
 	private static int[] numbers={6,2,5,5,4,5,6,3,7,6};
 
+	/**
+	 * calcualte amount of sticks for a number
+	 * @param x
+	 * @return
+	 */
 	private static int fun(int x){
 		int num=0;
 		while(x/10!=0){
@@ -15,6 +23,7 @@ public class Enumeration {
 	}
 	
 	/**
+	 * Çî¾Ù»ð²ñËãÊ½
 	 * pre-codition m<=24
 	 * @param m
 	 */
