@@ -100,6 +100,13 @@ class Search {
 		dfs(1,pokerResult,pokerHolder);// start at the beginning
 	}
 
+	/**
+	 * 第四章- 解救小哈
+	 * @param x - current location in the row
+	 * @param y - current location in the column
+	 * @param step - steps has been taken
+	 * @param holder - holder for data used in the program
+	 */
 	private static void rescue(int x,int y,int step,Holder holder){
 		if (x==holder.rescueP&&y==holder.rescueQ){
 			if (step<=holder.min){
@@ -121,6 +128,9 @@ class Search {
 		}
 	}
 
+	/**
+	 * 第四章- 解救小哈
+	 */
 	public static void rescueWithDFS(){
 		Holder holder=new Holder(4,3,5,4);
 		holder.books[1][1]=1;
