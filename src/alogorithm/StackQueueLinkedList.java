@@ -185,6 +185,11 @@ public class StackQueueLinkedList {
 		}
 	}
 
+	/**
+	 * create a linked list from an array
+	 * @param arr
+	 * @return
+	 */
 	private static LinkedList linkedListTwo(int[] arr){
 		int[] data=new int[100];
 		int[] right=new int[100];
@@ -195,14 +200,14 @@ public class StackQueueLinkedList {
 		data[arr.length-1]=arr[arr.length-1];
 		return new LinkedList(data,right,arr.length);
 	}
-	
+
 	/**
 	 * 
 	 * @param list
 	 * @param number
 	 * @param index
 	 */
-	private static void insert(LinkedList list,int number,int index){
+	private static void insertAt(LinkedList list,int number,int index){
 		int[] data=list.getData();
 		int[] right=list.getRight();
 		int tail=list.getTail();
@@ -213,6 +218,17 @@ public class StackQueueLinkedList {
 		list.setTail(tail+1);
 	}
 	
+	/**
+	 * insert at the end of the list
+	 * @param list
+	 * @param number
+	 */
+	private static void insert(LinkedList list,int number){
+		int tail=list.getTail();
+		insertAt(list,number,tail-1);
+	}
+
+
 	public static void main(String[] args) {
 		int[] arr={6,3,1,7,5,8,9,2,4};
 		queueDecode(arr);
@@ -227,7 +243,7 @@ public class StackQueueLinkedList {
 		insertNode(head,3);
 		int[] listTwo={2,3,5,8,9,10,18,26,32};
 		LinkedList linklist=linkedListTwo(listTwo);
-		insert(linklist,6,2);
+		insert(linklist,6);
 		System.out.println(linklist);
 	}
 
