@@ -149,6 +149,70 @@ public class StackQueueLinkedList {
 		}
 	}
 
+	/**
+	 * at list elements in the ascending ordered array
+	 * @param arr
+	 * @return Node - the head pointer of the linked list
+	 */
+	private static Node linkedList(int[] arr){
+		Node[] linkedList=new Node[arr.length];
+		linkedList[0]=new Node(arr[0]);
+		for (int i=1;i<arr.length;i++){
+			Node t=new Node(arr[i]);
+			linkedList[i-1].setNext(t);
+			linkedList[i]=t;
+		}
+		Node head=new Node(0);
+		head.setNext(linkedList[0]);
+		return head;
+	}
+
+	/**
+	 * insert an element into a linked list pointed by a head pointer
+	 * @param head
+	 * @param number
+	 */
+	private static void insertNode(Node head,int number){
+		Node current,prev=head;
+		while((current=prev.getNext())!=null){
+			if (current.getData()>=number){
+				Node temp=new Node(number);
+				prev.setNext(temp);
+				temp.setNext(current);
+				break;
+			}
+			prev=current;
+		}
+	}
+
+	private static LinkedList linkedListTwo(int[] arr){
+		int[] data=new int[100];
+		int[] right=new int[100];
+		for (int i=0;i<arr.length-1;i++){
+			data[i]=arr[i];
+			right[i]=i+1;
+		}
+		data[arr.length-1]=arr[arr.length-1];
+		return new LinkedList(data,right,arr.length);
+	}
+	
+	/**
+	 * 
+	 * @param list
+	 * @param number
+	 * @param index
+	 */
+	private static void insert(LinkedList list,int number,int index){
+		int[] data=list.getData();
+		int[] right=list.getRight();
+		int tail=list.getTail();
+		data[tail]=number;
+		int t=right[index];
+		right[index]=tail;
+		right[tail]=t;
+		list.setTail(tail+1);
+	}
+	
 	public static void main(String[] args) {
 		int[] arr={6,3,1,7,5,8,9,2,4};
 		queueDecode(arr);
@@ -158,6 +222,13 @@ public class StackQueueLinkedList {
 		int[] p1={2,4,1,2,5,6};
 		int[] p2={3,1,3,5,6,4};
 		game(p1,p2);
+		int[] list={2,4,6,8,10};
+		Node head=linkedList(list);
+		insertNode(head,3);
+		int[] listTwo={2,3,5,8,9,10,18,26,32};
+		LinkedList linklist=linkedListTwo(listTwo);
+		insert(linklist,6,2);
+		System.out.println(linklist);
 	}
 
 }
