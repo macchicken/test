@@ -202,7 +202,7 @@ public class StackQueueLinkedList {
 	}
 
 	/**
-	 * 
+	 * insert at that index would just insert it after the element of that index
 	 * @param list
 	 * @param number
 	 * @param index
@@ -228,6 +228,19 @@ public class StackQueueLinkedList {
 		insertAt(list,number,tail-1);
 	}
 
+	private static void printList(LinkedList list){
+		int[] data=list.getData();
+		int[] right=list.getRight();
+		System.out.print("["+data[0]+", ");
+		int nexti=right[0];int tail=list.getTail()-1;
+		while(tail!=1){
+			System.out.print(data[nexti]+", ");
+			nexti=right[nexti];
+			tail--;
+		}
+		System.out.println(data[nexti]+"]");
+	}
+
 
 	public static void main(String[] args) {
 		int[] arr={6,3,1,7,5,8,9,2,4};
@@ -243,8 +256,9 @@ public class StackQueueLinkedList {
 		insertNode(head,3);
 		int[] listTwo={2,3,5,8,9,10,18,26,32};
 		LinkedList linklist=linkedListTwo(listTwo);
-		insert(linklist,6);
+		insertAt(linklist,6,0);
 		System.out.println(linklist);
+		printList(linklist);
 	}
 
 }
