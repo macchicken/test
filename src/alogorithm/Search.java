@@ -194,12 +194,11 @@ class Search {
 					tail++;
 					if (tx==rescueP&&ty==rescueQ){
 						int current=tail-1;
-						int step=que[current].step;
-						System.out.println(step);
-						for (int j=1;j<=current;j++){
-							System.out.print(que[j].x+","+que[j].y+" -> ");
+						System.out.println(que[current].step);
+						while(current>=1){
+							System.out.print(que[current].x+", "+que[current].y+" -> ");
+							current=que[current].parent;
 						}
-						System.out.println(rescueP+","+rescueQ);
 						success=true;
 						break;
 					}
