@@ -78,6 +78,11 @@ public class StackQueueLinkedList {
 		}
 	}
 
+	/**
+	 * 第二章纸牌游戏-小猫钓鱼
+	 * @param p1
+	 * @param p2
+	 */
 	private static void game(int[] p1,int[] p2){
 		Stack table=new Stack(new int[9],-1);
 		int[] p1d=new int[100];

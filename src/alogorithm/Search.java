@@ -56,6 +56,14 @@ class Search {
 		}
 	}
 
+	
+	private static class Node{
+		private int x;
+		private int y;
+		private int step;
+		private int parent;
+	}
+
 	/**
 	 * depth first search
 	 * try every possibilities, such as loop the number of cases
@@ -139,9 +147,74 @@ class Search {
 	}
 	
 
+	/**
+	 * 第四章- 解救小哈
+	 * solve by breath first search
+	 * try every possible moves at each step, 
+	 * save them in the moves storage if they are ok to move(there are some contraints)
+	 * move the step to next one after finishing trying
+	 * among each possible moves, check if it solves the problems,
+	 * if so jump out the iteration
+	 * @param n
+	 * @param m
+	 * @param rescueP
+	 * @param rescueQ
+	 */
+	public static void rescueWithBFS(int n,int m,int rescueP,int rescueQ){
+		Node[] que=new Node[2501];// step storage implemented by queue
+		for (int i=1;i<2501;i++){
+			que[i]=new Node();
+		}
+		int head,tail;
+		int[][] map=new int[51][51];
+		int[][] books=new int[51][51];// stores passed location
+		int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
+		map[1][3]=1;//set obstacle
+		map[3][3]=1;
+		map[4][2]=1;
+		map[5][4]=1;//set obstacle
+		head=tail=1;
+		que[tail].x=1;// start at 1
+		que[tail].y=1;// start at 1
+		que[tail].step=0;
+		que[tail].parent=0;
+		tail++;
+		books[1][1]=1;
+		boolean success = false;
+		while(head<tail){
+			for (int i=0;i<=3;i++){
+				int tx=que[head].x+next[i][0];
+				int ty=que[head].y+next[i][1];
+				if (tx<=n&&tx>=1&&ty<=m&&ty>=1&&books[tx][ty]==0&&map[tx][ty]==0){
+					books[tx][ty]=1;
+					que[tail].x=tx;
+					que[tail].y=ty;
+					que[tail].step=que[head].step+1;
+					que[tail].parent=head;
+					tail++;
+					if (tx==rescueP&&ty==rescueQ){
+						int current=tail-1;
+						int step=que[current].step;
+						System.out.println(step);
+						for (int j=1;j<=current;j++){
+							System.out.print(que[j].x+","+que[j].y+" -> ");
+						}
+						System.out.println(rescueP+","+rescueQ);
+						success=true;
+						break;
+					}
+				}
+			}
+			if (success){break;}
+			head++;
+		}
+	}
+	
+
 	public static void main(String[] args) {
 //		dfsForAllpossibilities();
 		rescueWithDFS();
+		rescueWithBFS(5,4,4,3);
 	}
 
 }
