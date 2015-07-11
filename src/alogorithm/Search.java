@@ -1,5 +1,8 @@
 package alogorithm;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -209,11 +212,89 @@ class Search {
 		}
 	}
 	
+	private static int calculate(char[][] map,int x,int y,int[] direction){
+		int sum=0;int i=x,j=y;
+		while(map[i][j]!='#'){
+			if (map[i][j]=='G'){
+				sum++;
+			}
+			i=i+direction[0];
+			j=j+direction[1];
+		}
+		return sum;
+	}
+
+	private static char[][] readMap(int n,int m){
+		String dir=System.getProperty("user.dir");
+		char[][] map=new char[n+1][m+1];BufferedReader reader=null;
+		try {
+			reader=new BufferedReader(new FileReader(dir+"\\src\\alogorithm\\map.txt"));
+			String line;int i=1;
+			while((line=reader.readLine())!=null){
+				char[] t=line.toCharArray();
+				for (int j=1;j<=m;j++){
+					map[i][j]=t[j-1];
+				}
+				i++;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return map;
+	}
+
+	private static void boomManWithBFS(int startX,int startY,int n,int m){
+		Node[] que=new Node[401];
+		for (int i=1;i<401;i++){
+			que[i]=new Node();
+		}
+		int head,tail;
+		char[][] map=readMap(n,m);
+		int[][] books=new int[n+1][m+1];
+		int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
+		head=tail=1;
+		que[tail].x=startX;
+		que[tail].y=startY;
+		tail++;
+		books[startX][startY]=1;
+		int sum=0,locX=0,locY=0;
+		for (int i=0;i<4;i++){
+			sum+=calculate(map,que[head].x,que[head].y,next[i]);
+		}
+		while(head<tail){
+			for (int i=0;i<4;i++){
+				int tx=que[head].x+next[i][0];
+				int ty=que[head].y+next[i][1];
+				if (tx<n&&tx>1&&ty<m&&ty>1&&books[tx][ty]==0&&map[tx][ty]=='.'){
+					books[tx][ty]=1;
+					que[tail].x=tx;
+					que[tail].y=ty;
+					tail++;
+					int t=0;
+					for (int j=0;j<4;j++){
+						t+=calculate(map,tx,ty,next[j]);
+					}
+					if (t>sum){sum=t;locX=tx;locY=ty;}
+				}
+			}
+			head++;
+		}
+		System.out.println("max "+sum+" locX "+locX+" locY "+locY);
+	}
+
 
 	public static void main(String[] args) {
 //		dfsForAllpossibilities();
 		rescueWithDFS();
 		rescueWithBFS(5,4,4,3);
+		System.out.println();
+		boomManWithBFS(4,4,13,13);
 	}
 
 }
