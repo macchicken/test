@@ -67,6 +67,18 @@ class Search {
 		private int parent;
 	}
 
+	private static class BoomMan{
+		private int sum;
+		private int locX;
+		private int locY;
+		public BoomMan(int sum, int locX, int locY) {
+			super();
+			this.sum = sum;
+			this.locX = locX;
+			this.locY = locY;
+		}
+	}
+
 	/**
 	 * depth first search
 	 * try every possibilities, such as loop the number of cases
@@ -207,7 +219,7 @@ class Search {
 					}
 				}
 			}
-			if (success){break;}
+			if (success){System.out.println();break;}
 			head++;
 		}
 	}
@@ -288,13 +300,42 @@ class Search {
 		System.out.println("max "+sum+" locX "+locX+" locY "+locY);
 	}
 
+	private static void boomManDFSInner(int n, int m, int x,int y,int[][] books,
+			char[][] map,int[][] next, BoomMan bm) {
+		int sum=0;
+		for (int i=0;i<4;i++){
+			sum+=calculate(map,x,y,next[i]);
+		}
+		if (sum>bm.sum){bm.sum=sum;bm.locX=x;bm.locY=y;}
+		for (int i=0;i<4;i++){
+			int tx=x+next[i][0];
+			int ty=y+next[i][1];
+			if (tx<n&&tx>1&&ty<m&&ty>1&&books[tx][ty]==0&&map[tx][ty]=='.'){
+				books[tx][ty]=1;
+				boomManDFSInner(n,m,tx,ty,books,map,next,bm);
+			}
+		}
+	}
 
+	private static void boomManWithDFS(int startX,int startY,int n,int m){
+		char[][] map=readMap(n,m);
+		int[][] books=new int[n+1][m+1];
+		int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
+		BoomMan man=new BoomMan(0,startX,startY); 
+		boomManDFSInner(n,m,startX,startY,books,map,next,man);
+		System.out.println("max "+man.sum+" locX "+man.locX+" locY "+man.locY);
+	}
+
+	
 	public static void main(String[] args) {
 //		dfsForAllpossibilities();
 		rescueWithDFS();
+		System.out.println();
 		rescueWithBFS(5,4,4,3);
 		System.out.println();
 		boomManWithBFS(4,4,13,13);
+		System.out.println();
+		boomManWithDFS(4,4,13,13);
 	}
 
 }
