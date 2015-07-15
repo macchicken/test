@@ -58,7 +58,6 @@ class Search {
 			}
 		}
 	}
-
 	
 	private static class Node{
 		private int x;
@@ -236,11 +235,11 @@ class Search {
 		return sum;
 	}
 
-	private static char[][] readMap(int n,int m){
+	private static char[][] readMap(int n,int m,String mapFile){
 		String dir=System.getProperty("user.dir");
 		char[][] map=new char[n+1][m+1];BufferedReader reader=null;
 		try {
-			reader=new BufferedReader(new FileReader(dir+"\\src\\alogorithm\\map.txt"));
+			reader=new BufferedReader(new FileReader(dir+mapFile));
 			String line;int i=1;
 			while((line=reader.readLine())!=null){
 				char[] t=line.toCharArray();
@@ -261,13 +260,20 @@ class Search {
 		return map;
 	}
 
-	private static void boomManWithBFS(int startX,int startY,int n,int m){
+	/**
+	 * 第四章- 炸弹人计算一颗炸弹可以炸多少人
+	 * @param startX
+	 * @param startY
+	 * @param n
+	 * @param m
+	 */
+	public static void boomManWithBFS(int startX,int startY,int n,int m){
 		Node[] que=new Node[401];
 		for (int i=1;i<401;i++){
 			que[i]=new Node();
 		}
 		int head,tail;
-		char[][] map=readMap(n,m);
+		char[][] map=readMap(n,m,"\\src\\alogorithm\\map.txt");
 		int[][] books=new int[n+1][m+1];
 		int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
 		head=tail=1;
@@ -317,8 +323,15 @@ class Search {
 		}
 	}
 
-	private static void boomManWithDFS(int startX,int startY,int n,int m){
-		char[][] map=readMap(n,m);
+	/**
+	 * 第四章- 炸弹人计算一颗炸弹可以炸多少人
+	 * @param startX
+	 * @param startY
+	 * @param n
+	 * @param m
+	 */
+	public static void boomManWithDFS(int startX,int startY,int n,int m){
+		char[][] map=readMap(n,m,"\\src\\alogorithm\\map.txt");
 		int[][] books=new int[n+1][m+1];
 		int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
 		BoomMan man=new BoomMan(0,startX,startY); 
@@ -326,16 +339,92 @@ class Search {
 		System.out.println("max "+man.sum+" locX "+man.locX+" locY "+man.locY);
 	}
 
+	/**
+	 * 第四章- 宝岛探险 计算登陆岛屿的面积
+	 * @param landX
+	 * @param landY
+	 * @param n
+	 * @param m
+	 */
+	public static void adventureWithBFS(int landX, int landY,int n,int m){
+		char[][] map=readMap(n,m,"\\src\\alogorithm\\island.txt");
+		if (map[landX][landY]=='0'){System.out.println("area "+0);return;}
+		int max=n*m+1;int head=1,tail=1;
+		Node[] que=new Node[max];
+		for (int i=1;i<max;i++){
+			que[i]=new Node();
+		}
+		int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
+		int[][] books=new int[n+1][m+1];
+		int area=0;
+		books[landX][landY]=1;
+		que[tail].x=landX;
+		que[tail].y=landY;
+		tail++;
+		area=1;
+		while(head<tail){
+			for (int i=0;i<4;i++){
+				int tx=que[head].x+next[i][0];
+				int ty=que[head].y+next[i][1];
+				if (tx>=1&&tx<=n&&ty>=1&&ty<=m&&books[tx][ty]==0&&map[tx][ty]!='0'){
+					books[tx][ty]=1;
+					que[tail].x=tx;
+					que[tail].y=ty;
+					tail++;
+					area++;
+				}
+			}
+			head++;
+		}
+		System.out.println("area "+area);
+	}
 	
+	private static int adventureWithDFSinner(int x, int y, int n, int m,
+			int[][] books, int[][] next, char[][] map) {
+		if (map[x][y]=='0'){
+			return 0;
+		}
+		int area=1;books[x][y]=1;
+		for (int i=0;i<4;i++){
+			int tx=x+next[i][0];
+			int ty=y+next[i][1];
+			if (tx>=1&&tx<=n&&ty>=1&&ty<=m&&books[tx][ty]==0&&map[tx][ty]!='0'){
+				books[tx][ty]=1;
+				area+=adventureWithDFSinner(tx,ty,n,m,books,next,map);
+			}
+		}
+		return area;
+	}
+
+	/**
+	 * 第四章- 宝岛探险 计算登陆岛屿的面积
+	 * @param landX
+	 * @param landY
+	 * @param n
+	 * @param m
+	 */
+	public static void adventureWithDFS(int landX, int landY,int n,int m){
+		char[][] map=readMap(n,m,"\\src\\alogorithm\\island.txt");
+		if (map[landX][landY]=='0'){System.out.println("area "+0);return;}
+		int[][] books=new int[n+1][m+1];
+		int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
+		int area=adventureWithDFSinner(landX,landY,n,m,books,next,map);
+		System.out.println("area "+area);
+	}
+	
+
 	public static void main(String[] args) {
 //		dfsForAllpossibilities();
-		rescueWithDFS();
-		System.out.println();
-		rescueWithBFS(5,4,4,3);
-		System.out.println();
-		boomManWithBFS(4,4,13,13);
-		System.out.println();
-		boomManWithDFS(4,4,13,13);
+//		rescueWithDFS();
+//		System.out.println();
+//		rescueWithBFS(5,4,4,3);
+//		System.out.println();
+//		boomManWithBFS(4,4,13,13);
+//		System.out.println();
+//		boomManWithDFS(4,4,13,13);
+//		System.out.println();
+		adventureWithBFS(6,8,10,10);
+		adventureWithDFS(6,8,10,10);
 	}
 
 }
