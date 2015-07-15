@@ -78,6 +78,19 @@ class Search {
 		}
 	}
 
+	private static class NodeQueue{
+		private int head;
+		private int tail;
+		private Node[] que;
+		public NodeQueue(int head, int tail, Node[] que) {
+			super();
+			this.head = head;
+			this.tail = tail;
+			this.que = que;
+		}
+		
+	}
+
 	/**
 	 * depth first search
 	 * try every possibilities, such as loop the number of cases
@@ -412,9 +425,113 @@ class Search {
 		System.out.println("area "+area);
 	}
 	
+	private static void setMapArea(int x, int y, NodeQueue queue, int n, int m,
+			char[][] map, int[][] books, int[][] next,char colour) {
+		while(queue.head<queue.tail){
+			for (int i=0;i<4;i++){
+				int tx=queue.que[queue.head].x+next[i][0];
+				int ty=queue.que[queue.head].y+next[i][1];
+				if (tx>=1&&tx<=n&&ty>=1&&ty<=m&&books[tx][ty]==0&&map[tx][ty]!='0'){
+					books[tx][ty]=1;
+					queue.que[queue.tail].x=tx;
+					queue.que[queue.tail].y=ty;
+					map[tx][ty]=colour;
+					queue.tail++;
+				}
+			}
+			queue.head++;
+		}
+	}
+
+	/**
+	 * 第四章- 宝岛探险 获得所有独立小岛的范围并标识
+	 * @param n
+	 * @param m
+	 */
+	public static void adventureWholeMapWithBFS(int n,int m){
+		char[][] map=readMap(n,m,"\\src\\alogorithm\\island.txt");
+		int[][] books=new int[n+1][m+1];
+		int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
+		int max=n*m+1;
+		Node[] que=new Node[max];
+		for (int i=1;i<max;i++){
+			que[i]=new Node();
+		}
+		NodeQueue queue=new NodeQueue(1,1,que);
+		char colour='a';int c=0;
+		for (int i=1;i<=n;i++){
+			for (int j=1;j<=m;j++){
+				if (books[i][j]==0&&map[i][j]!='0') {
+					books[i][j]=1;
+					queue.que[queue.tail].x=i;
+					queue.que[queue.tail].y=j;
+					colour+=c;
+					map[i][j]=colour;
+					queue.tail++;
+					setMapArea(i, j, queue, n, m, map, books, next,colour);
+					c++;
+				}
+			}
+		}
+		for (int i=1;i<=n;i++){
+			for (int j=1;j<=m;j++){
+				System.out.print(map[i][j]);
+				System.out.print(' ');
+			}
+			System.out.println();
+		}
+	}
+
+	private static void adventureWholeMapWithDFSinner(int x, int y,
+			int n, int m, char[][] map, int[][] books, int[][] next, char colour) {
+		if (map[x][y]=='0'){
+			return;
+		}
+		map[x][y]=colour;
+		books[x][y]=1;
+		for (int i=0;i<4;i++){
+			int tx=x+next[i][0];
+			int ty=y+next[i][1];
+			if (tx>=1&&tx<=n&&ty>=1&&ty<=m&&books[tx][ty]==0&&map[tx][ty]!='0'){
+				map[tx][ty]=colour;
+				books[tx][ty]=1;
+				adventureWholeMapWithDFSinner(tx,ty,n,m,map,books,next,colour);
+			}
+		}
+	}
+
+	/**
+	 * 第四章- 宝岛探险 获得所有独立小岛的范围并标识
+	 * @param n
+	 * @param m
+	 */
+	public static void adventureWholeMapWithDFS(int n, int m){
+		char[][] map=readMap(n,m,"\\src\\alogorithm\\island.txt");
+		int[][] books=new int[n+1][m+1];
+		int[][] next={{0,1},{1,0},{0,-1},{-1,0}};
+		char colour='a';int c=0;
+		for (int i=1;i<=n;i++){
+			for (int j=1;j<=m;j++){
+				if (books[i][j]==0&&map[i][j]!='0'){
+					colour+=c;
+					adventureWholeMapWithDFSinner(i,j,n,m,map,books,next,colour);
+					c++;
+				}
+			}
+		}
+		for (int i=1;i<=n;i++){
+			for (int j=1;j<=m;j++){
+				System.out.print(map[i][j]);
+				System.out.print(' ');
+			}
+			System.out.println();
+		}
+	}
+
 
 	public static void main(String[] args) {
 //		dfsForAllpossibilities();
+//		System.out.println();
 //		rescueWithDFS();
 //		System.out.println();
 //		rescueWithBFS(5,4,4,3);
@@ -423,8 +540,13 @@ class Search {
 //		System.out.println();
 //		boomManWithDFS(4,4,13,13);
 //		System.out.println();
-		adventureWithBFS(6,8,10,10);
-		adventureWithDFS(6,8,10,10);
+//		adventureWithBFS(6,8,10,10);
+//		System.out.println();
+//		adventureWithDFS(6,8,10,10);
+//		System.out.println();
+		adventureWholeMapWithBFS(10,10);
+		System.out.println();
+		adventureWholeMapWithDFS(10,10);
 	}
 
 }
